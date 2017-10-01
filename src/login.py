@@ -17,8 +17,8 @@ def login(username, password):
     logger = logging.getLogger(__name__)
 
     BUNGIE_SIGNIN_URI = "https://www.bungie.net/en/User/SignIn/Psnid"
-    PSN_OAUTH_URI = "https://auth.api.sonyentertainmentnetwork.com/login.do"
-    # PSN_OAUTH_URI = "https://auth.api.sonyentertainmentnetwork.com/login.jsp"
+    # PSN_OAUTH_URI = "https://auth.api.sonyentertainmentnetwork.com/login.do"
+    PSN_OAUTH_URI = "https://auth.api.sonyentertainmentnetwork.com/login.jsp"
 
     logger.info("Logging in...")
 
@@ -46,7 +46,7 @@ def login(username, password):
         data={"j_username": username,
               "j_password": password,
               "params": params64,
-              "location": "en"},
+              "location": ""},
         cookies={"JSESSIONID": jsessionid0},
         allow_redirects=False
     )
@@ -54,10 +54,12 @@ def login(username, password):
     print post.headers
     print " ------ "
     print post.cookies
+    print type(post.cookies)
     print " ------ "
 
-    if "authentication_error" in post.headers["location"]:
-        logger.warning("Invalid credentials")
+    if "location" in post.headers.keys():
+        if "authentication_error" in post.headers["location"]:
+            logger.warning("Invalid credentials")
     jsessionid1 = post.cookies["JSESSIONID"]
     logger.debug("JSESSIONID: %s", jsessionid1)
 
