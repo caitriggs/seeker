@@ -50,6 +50,7 @@ def login(username, password):
         cookies={"JSESSIONID": jsessionid0},
         allow_redirects=False
     )
+
     print " ------ "
     print post.headers
     print " ------ "
