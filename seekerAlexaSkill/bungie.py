@@ -74,3 +74,9 @@ class BungieData(object):
         request = requests.get(site_call, 
                                 headers={"X-API-Key":self.api_key})
         return request.json()['Response']
+
+    def get_PGCR(self, reference_id):
+        site_call = "https://bungie.net/Platform/Destiny2/Stats/PostGameCarnageReport/" + str(reference_id)
+        request = requests.get(site_call, 
+                                headers={"X-API-Key":self.api_key})
+        return request.json()['Response']
